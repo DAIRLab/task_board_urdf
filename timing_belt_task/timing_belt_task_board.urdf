@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<robot name="timing_belt_task_board">
-
+<robot name="task_board">
   <link name="board">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>

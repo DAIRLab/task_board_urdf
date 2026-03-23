@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<robot name="round_belt_task_board">
+<robot name="task_board">
   <link name="board">
     <visual name="board">
       <origin xyz="0 0 0" rpy="0 0 0"/>
