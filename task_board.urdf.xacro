@@ -440,6 +440,79 @@
       <child link="large_timing_pulley"/>
       <origin xyz="0 0 0" rpy="0 0 0"/>
     </joint>
+    <joint name="timing_belt_tensioner_joint" type="fixed">
+      <parent link="board" />
+      <child link="timing_belt_tensioner" />
+      <origin xyz="0.315 0.112 0" rpy="0 0 ${33*pi/50}" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <link name="timing_belt_tensioner">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_base.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_base.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
+    <joint name="timing_belt_tensioner_arm_joint" type="revolute">
+      <parent link="timing_belt_tensioner" />
+      <child link="timing_belt_tensioner_arm" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="1 0 0" />
+      <limit lower="-1.0" upper="1.0" effort="100" velocity="100" />
+    </joint>
+    <link name="timing_belt_tensioner_arm">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_arm.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0 0.08 0.04492" rpy="${-pi/2} 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_rotary.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_arm.gltf" />
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0.08 0.04492" rpy="${-pi/2} 0 0" />
+        <geometry>
+          <mesh filename="timing_belt_task/tensioner_rotary.gltf" />
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      </inertial>
+    </link>
   </xacro:if>
 
 </robot>
