@@ -103,6 +103,24 @@
         </material>
       </visual>
       <collision>
+        <origin xyz="0 0 0.012" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_sprocket.obj" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </collision>
+      <collision>
+        <origin xyz="0 0 .015" rpy="0 ${-pi/2} 0" />
+        <geometry>
+          <mesh filename="bike_chain_task/tensioner_bearing.gltf" />
+        </geometry>
+        <material name="material_name">
+          <color rgba="1 1 1 1" />
+        </material>
+      </collision>
+      <collision>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0" />
         <geometry>
           <mesh filename="bike_chain_task/tensioner_bolt.gltf" />
