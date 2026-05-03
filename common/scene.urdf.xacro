@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="scene">
+
+    <!-- Root frame preserving the old top-level scene frame -->
+    <link name="scene"/>
+
+    <!-- Table -->
+    <link name="table">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="table/table.gltf" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="scene_to_table" type="fixed">
+        <parent link="scene"/>
+        <child link="table"/>
+        <origin rpy="0 0 ${pi/2}" xyz="0.23008 0 -0.02858"/>
+    </joint>
+
+    <!-- in x, table edge to wooden plate edge is 0.303 on one side and .306 on the other -->
+    <!-- in y table edge to wooden plate edge is 0.3025 on one side and .3065 on the other -->
+
+    <!-- Wooden plate -->
+    <link name="wooden_plate">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="franka_mount/wooden_plate.gltf" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="table_to_wooden_plate" type="fixed">
+        <parent link="table"/>
+        <child link="wooden_plate"/>
+        <origin rpy="0 0 0" xyz="0 0.30677 0.01905"/>
+    </joint>
+
+    <!-- Base plate -->
+    <link name="base_plate">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="franka_mount/base_plate.obj"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="wooden_plate_to_base_plate" type="fixed">
+        <parent link="wooden_plate"/>
+        <child link="base_plate"/>
+        <origin rpy="0 0 ${-pi}" xyz="0 -0.07669 0.00953"/>
+    </joint>
+
+</robot>
