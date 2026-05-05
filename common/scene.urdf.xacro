@@ -5,14 +5,28 @@
     <!-- Root frame preserving the old top-level scene frame -->
     <link name="scene"/>
 
+    <!-- define constants -->
+    <!-- table OBB extents: array([1524.  ,  914.4 ,   44.45]) -->
+    <xacro:property name="table_height" value="0.04445"/>
+    <xacro:property name="table_length" value="1.524"/>
+    <xacro:property name="table_width" value="0.9144"/>
+    <xacro:property name="table_origin_z_offset" value="0.00255"/>
+
     <!-- Table -->
     <link name="table">
         <visual>
-            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <!-- table mesh origin is 2.55mm floating above the table surface -->
+            <origin rpy="0 0 0" xyz="0 0 ${table_origin_z_offset}"/>
             <geometry>
                 <mesh filename="table/table.gltf" scale="0.001 0.001 0.001"/>
             </geometry>
         </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 ${-table_height/2}"/>
+            <geometry>
+                <box size="${table_length} ${table_width} ${table_height}"/>
+            </geometry>
+        </collision>
     </link>
 
     <joint name="scene_to_table" type="fixed">
@@ -20,6 +34,11 @@
         <child link="table"/>
         <origin rpy="0 0 ${pi/2}" xyz="0.23008 0 -0.02858"/>
     </joint>
+
+    <!-- Wooden board OBB extents: [914.4  304.8   19.05] -->
+    <xacro:property name="wooden_plate_length" value="0.9144"/>
+    <xacro:property name="wooden_plate_width" value="0.3048"/>
+    <xacro:property name="wooden_plate_height" value="0.01905"/>
 
     <!-- in x, table edge to wooden plate edge is 0.303 on one side and .306 on the other -->
     <!-- in y table edge to wooden plate edge is 0.3025 on one side and .3065 on the other -->
@@ -32,6 +51,13 @@
                 <mesh filename="franka_mount/wooden_plate.gltf" scale="0.001 0.001 0.001"/>
             </geometry>
         </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 ${-wooden_plate_height/2}"/>
+            <geometry>
+                <!-- array([914.4, 304.8, 19.05]) -->
+                <box size="${wooden_plate_length} ${wooden_plate_width} ${wooden_plate_height}"/>
+            </geometry>
+        </collision>
     </link>
 
     <joint name="table_to_wooden_plate" type="fixed">
@@ -40,6 +66,12 @@
         <origin rpy="0 0 0" xyz="0 0.30677 0.01905"/>
     </joint>
 
+    <!-- Base plate OBB extents: [0.254    0.254    0.009525] -->
+    <xacro:property name="base_plate_length" value="0.254"/>
+    <xacro:property name="base_plate_width" value="0.254"/>
+    <xacro:property name="base_plate_height" value="0.009525"/>
+
+    <xacro:property name="base_plate_to_franka_x_offset" value="0.0763"/>
     <!-- Base plate -->
     <link name="base_plate">
         <visual>
@@ -48,12 +80,46 @@
                 <mesh filename="franka_mount/base_plate.obj"/>
             </geometry>
         </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 ${-base_plate_to_franka_x_offset} ${-base_plate_height/2}"/>
+            <geometry>
+                <!-- array([0.254, 0.254, 0.009525]) -->
+                <box size="${base_plate_length} ${base_plate_width} ${base_plate_height}"/>
+            </geometry>
+        </collision>
     </link>
 
     <joint name="wooden_plate_to_base_plate" type="fixed">
         <parent link="wooden_plate"/>
         <child link="base_plate"/>
         <origin rpy="0 0 ${-pi}" xyz="0 -0.07669 0.00953"/>
+    </joint>
+
+    <xacro:property name="metal_bar_length" value="0.735"/>
+    <xacro:property name="metal_bar_width" value="0.048"/>
+    <xacro:property name="metal_bar_height" value="0.01"/>
+    
+    <!-- metal bar length is 73.5cm -->
+    <!-- extends about 4.8cm from table edge -->
+    <link name="metal_bar">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 ${-metal_bar_height/2}"/>
+            <geometry>
+                <box size="${metal_bar_length} ${metal_bar_width} ${metal_bar_height}"/>
+            </geometry>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 ${-metal_bar_height/2}"/>
+            <geometry>
+                <box size="${metal_bar_length} ${metal_bar_width} ${metal_bar_height}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="table_to_metal_bar" type="fixed">
+        <parent link="table"/>
+        <child link="metal_bar"/>
+        <origin rpy="0 0 0" xyz="0 ${-table_width/2 + metal_bar_width/2} ${metal_bar_height}"/>
     </joint>
 
 </robot>
