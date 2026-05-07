@@ -97,7 +97,7 @@
 
     <xacro:property name="metal_bar_length" value="0.735"/>
     <xacro:property name="metal_bar_width" value="0.048"/>
-    <xacro:property name="metal_bar_height" value="0.01"/>
+    <xacro:property name="metal_bar_height" value="0.0034"/>
     
     <!-- metal bar length is 73.5cm -->
     <!-- extends about 4.8cm from table edge -->
