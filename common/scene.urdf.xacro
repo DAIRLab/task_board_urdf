@@ -89,6 +89,61 @@
         </collision>
     </link>
 
+    <joint name="base_plate_to_franka_workspace_viz" type="fixed">
+        <parent link="base_plate"/>
+        <child link="franka_workspace_viz"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+
+    <xacro:property name="franka_max_reach" value="0.855"/>
+    <xacro:property name="franka_min_reach" value="0.2"/>
+    <link name="franka_workspace_viz">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <!-- make a transparent visualization of the franka workspace -->
+            <material name="franka_workspace_material">
+                <color rgba="0.0 0.0 1.0 0.15"/>
+            </material>
+            <geometry>
+                <sphere radius="${franka_max_reach}"/>
+            </geometry>
+        </visual>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <!-- make a transparent visualization of the franka workspace -->
+            <material name="franka_workspace_material">
+                <color rgba="1.0 0.0 0.0 0.15"/>
+            </material>
+            <geometry>
+                <sphere radius="${franka_min_reach}"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="table_to_task_bbox" type="fixed">
+        <parent link="table"/>
+        <child link="task_bbox"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+    <xacro:property name="task_bbox_length" value="0.75"/>
+    <xacro:property name="task_bbox_width" value="0.48"/>
+    <xacro:property name="task_bbox_height" value="0.5"/>
+
+    <xacro:property name="table_to_task_bbox_y_offset" value="0.21"/>
+    <link name="task_bbox">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 ${-table_to_task_bbox_y_offset} ${task_bbox_height/2}"/>
+            <!-- make a transparent visualization of the task bbox -->
+            <material name="task_bbox_material">
+                <color rgba="1.0 1.0 0.0 0.15"/>
+            </material>
+            <geometry>
+                <box size="${task_bbox_length} ${task_bbox_width} ${task_bbox_height}"/>
+            </geometry>
+        </visual>
+    </link>
+
+
     <joint name="wooden_plate_to_base_plate" type="fixed">
         <parent link="wooden_plate"/>
         <child link="base_plate"/>
