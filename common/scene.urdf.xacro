@@ -127,7 +127,7 @@
     </joint>
     <xacro:property name="task_bbox_length" value="0.75"/>
     <xacro:property name="task_bbox_width" value="0.48"/>
-    <xacro:property name="task_bbox_height" value="0.5"/>
+    <xacro:property name="task_bbox_height" value="0.4"/>
 
     <xacro:property name="table_to_task_bbox_y_offset" value="0.21"/>
     <link name="task_bbox">
