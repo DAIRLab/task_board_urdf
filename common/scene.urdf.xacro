@@ -135,7 +135,7 @@
             <origin rpy="0 0 0" xyz="0 ${-table_to_task_bbox_y_offset} ${task_bbox_height/2}"/>
             <!-- make a transparent visualization of the task bbox -->
             <material name="task_bbox_material">
-                <color rgba="1.0 1.0 0.0 0.15"/>
+                <color rgba="1.0 0.0 0.0 0.15"/>
             </material>
             <geometry>
                 <box size="${task_bbox_length} ${task_bbox_width} ${task_bbox_height}"/>
